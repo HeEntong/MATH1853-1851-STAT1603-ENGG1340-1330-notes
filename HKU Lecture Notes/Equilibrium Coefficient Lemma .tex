@@ -1,0 +1,89 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+
+\geometry{a4paper,scale=0.75}
+
+\title{\textbf{A Lemma of the Equilibrium Coefficient}}
+\author{He Entong}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Consider a chemical reaction formula, written as 
+\begin{equation}
+    \sum_{i=1}^{N} C_{R_i}R_i ~~ \rightleftharpoons ~~ \sum_{i=1}^{M} C_{P_i} P_i 
+\end{equation}
+where $R_i$ , $P_i$ stand for the reactant and product of the reaction, and $C_{R_i}$, $C_{P_i}$ stand for their coefficient respectively. \par
+\indent According to Van't Hoff's theorem, the equilibrium coefficient of the aforementioned reaction formula is written as
+\begin{equation}
+    \mathscr{K} = \frac{\prod^{M}_{i=1}[P_i]^{C_{P_i}}}{\prod^{N}_{i=1}[R_i]^{C_{R_i}}}
+\end{equation}
+In industry production, we are interested that under what circumstance that the conversion percentage of the reactant input is maximized given that the quantity of the reactant is fixed. Without any proof we give the conclusion that
+\begin{equation}
+\begin{aligned}
+    \mathop{\mathscr{K}_{R_{0i}}} \limits_{max} = ([R_{01}], [R_{02}], [R_{03}] \dots [R_{0N}]),~~ \frac{[R_{0i}]}{C_{R_i}} = Const
+\end{aligned}
+\end{equation}
+where $[R_{0i}]$ stands for the input density of the $i_{th}$ reactant. Meanwhile the summation of the reactant density is  $Constant$
+\section{Derivation}
+We well assume that the input concentration of the reactants is $[R_{0i}]$, the unitary transformation of the chemical reaction is $u$, which we tend to maximize. Substitute the variables in we obtain
+\begin{equation}
+\begin{aligned}
+    [P_i] = C_{P_i}u, [R_i] = [R_{0i}] - C_{R_i}u \\
+    \mathscr{K} = \frac{\prod^{M}_{i=1}(C_{P_i}u)^{C_{P_i}}}{\prod^{N}_{i=1}([R_{0i}] - C_{R_i}u)^{C_{R_i}}}
+\end{aligned}
+\end{equation}
+To find $u_{max}$, we apply the Lagrange Multiplier Method.
+\par \indent The targeted function is $U(u,[R_{01}],[R_{02}], \dots,[R_{0N}])~ = ~u$, and the condition is
+\begin{equation}
+\begin{aligned}
+    G(u,[R_{01}],[R_{02}], \dots,[R_{0N}])~ &=~\mathscr{K}\bigg(\prod^{N}_{i=1}([R_{0i}]-C_{R_i}u)^{C_{R_i}}\bigg) - \prod^{M}_{i=1}(C_{P_i}u)^{C_{P_i}} = 0 \\
+    H(u,[R_{01}],[R_{02}], \dots,[R_{0N}]) &= \sum_{i=1}^{N}[R_{0i}] ~-~Const = 0
+\end{aligned}
+\end{equation}
+\clearpage
+Such that 
+\begin{equation}
+\left\{
+\begin{aligned}
+    & \frac{\partial U}{\partial u} + \lambda_1 \frac{\partial G}{\partial u}  + \lambda_2 \frac{\partial H}{\partial u}= 0 \\
+    & \frac{\partial U}{\partial [R_{0i}]} + \lambda_1 \frac{\partial G}{\partial [R_{0i}]} + \lambda_2 \frac{\partial H}{\partial [R_{0i}]} = 0 ~~~ i \in (1, 2, 3, \dots N)
+\end{aligned}             
+\right.
+\end{equation}
+Substitute in we obtain
+
+\begin{equation}
+\begin{aligned}
+    \mathscr{K} \sum_{i=1} ^ N\bigg[ (-C_{R_i}^2 ) ([R_{0i}] - C_{R_i}u)^{C_{R_i} - 1} \prod_{j=1}^{i-1} ([R_{0j}] - C_{R_j} u)^{C_{R_j}} \prod_{j=i+1}^{N} ([R_{0j}] - C_{R_j}u)^{C_{R_j}} \bigg] \\ 
+    - \sum_{i=1}^{M} C_{P_i}^2 (C_{P_i}u)^{C_{P_i} - 1} \prod_{j=1}^{i-1} (C_{P_j}u)^{C_{P_j}} \prod_{j=i+1}^{M} (C_{P_j} u )^{C_{P_j}} = -\frac{1}{\lambda_1} \\
+    \mathscr{K} \bigg( C_{R_i} ([R_{0i}] - C_{R_i}u)^{C_{R_i}-1} \prod^{i-1}_{j=1} ([R_{0j}] - C_{R_j}u)^{C_{R_j}} \prod_{j=i+1}^{N} ([R_{0j}] - C_{R_j}u)^{C_{R_j}} \bigg)  = -\lambda_2
+\end{aligned}
+\end{equation}
+The equations above gives us that 
+\begin{equation}
+\begin{aligned}
+    \frac{C_{R_i}}{[R_{0i}] - C_{R_i}u} = -&\frac{\lambda} {\mathscr{K}\bigg(\prod^{N}_{i=1}([R_{0i}]-C_{R_i}u)^{C_{R_i}}\bigg)}  \\
+    \frac{[R_{01}]}{C_{R_1}} &= \frac{[R_{02}]}{C_{R_2}} = \dots = \frac{[R_{0i}]}{C_{R_i}}
+\end{aligned}
+\end{equation}
+\section{Conclusion}
+\indent Hence, given that the overall quantity of the input reactant is a constant, the conversion percentage reaches the maximum if and only if the input quantity of every reactant is proportional to its stoichiometric coefficients in the chemical reaction formula, respectively, i.e.
+\begin{equation}
+    [R_{0i}] = \sum_{j=1}^N [R_{0j}] \bigg( \frac{C_{R_i}}{\sum_{j=1}^N C_{R_j}} \bigg)
+\end{equation}
+\end{document}

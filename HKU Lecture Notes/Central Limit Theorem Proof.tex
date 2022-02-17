@@ -1,0 +1,95 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+
+\geometry{a4paper,scale=0.73}
+
+\title{ Proof of Central Limit Theorem under Not Identically Distributed Condition}
+\author{\textbf{He Entong}}
+\date{}
+\begin{document}
+
+
+\maketitle
+
+\section{Introduction}
+Let $X_1, X_2,X_3 ... X_n$ be a series of independent random variables, each has an arbitrary distribution. With mathematical calculation I conclude that the distribution of the normalized variable 
+\begin{equation}
+    X_{nor} = \frac{\sum_{i = 1}^n X_i - \sum_{i=1}^n \mu_i}{\sqrt{\sum_{i=1}^n \sigma^2_{i}}}
+\end{equation}  approximates a normal distribution as $n \rightarrow \infty$, where $\mu_i$ and $\sigma^2_i$ are the mean and variance of each random variable respectively.
+
+\section{Derivation}
+Once the distribution is decided, the mean and variance are both constants. We let 
+\begin{equation}
+    \sum_{i=0}^n \mu_i = \bar \mu,~
+    \sqrt{\sum_{i=1}^n \sigma_i^2} = \bar \sigma.
+\end{equation}
+And aware that $\bar \sigma$ monotonously increase in the same order  as $n$ (or we say, $\bar \sigma = \Theta(n)$). \par
+\indent Consider the $p.d.f.$ of the normalized variable $f_{X_{nor}}(x)$. Apply the Inverse Fourier Transform to it, we obtain
+
+\begin{equation}
+\begin{aligned}
+    \mathscr{F}^{-1}[f_{X_{nor}}(x)](f) &= \int_{-\infty}^{\infty} e^{2 \pi i f x} f_{X_{nor}}(x)~dx \\
+    & = \int^{\infty}_{-\infty} \sum^{+\infty}_{N = 0}\frac{(2 \pi i f x)^N}{N!} f_{X_{nor}}(x)~dx \\ 
+    & = \sum^{+\infty}_{N = 0} \frac{(2 \pi i f)^N}{N!} \int^{\infty}_{-\infty} x^N f_{X_{nor}}(x) ~dx \\
+    & = \sum^{+\infty}_{N=0} \frac{(2 \pi i f)^N}{N!} E(X_{nor}^N)
+\end{aligned}
+\end{equation}
+
+The expression of $E(X_{nor}^N)$ is written as
+\begin{equation}
+\begin{aligned}
+    E(X_{nor}^N) &= \idotsint \limits_{-\infty}^{~~\infty}(\frac{\sum_{i=1}^{n}x_i - \sum_{i=1}^{n}\mu_i}{\sqrt{\sum_{i=1}^{n}\sigma^2}})^N f_{X_1}(x_1) f_{X_2}(x_2) \dots f_{X_n}(x_n)~dx_1 dx_2 \dots dx_n \\
+    &= \idotsint \limits_{-\infty}^{~~\infty}(\frac{\sum_{i=1}^{n}x_i - \bar \mu}{\bar \sigma})^N f_{X_1}(x_1) f_{X_2}(x_2) \dots f_{X_n}(x_n) ~dx_1 dx_2 \dots dx_n \notag
+\end{aligned}
+\end{equation}
+Substitute in we obtain
+\begin{equation}
+\begin{aligned}
+    & ~~~~\mathscr{F}^{-1}[f_{X_{nor}}(x)](f) \\ &= \sum^{+\infty}_{N=0}\frac{(2 \pi i f \frac{\sum_{i=1}^{n}x_i - \bar \mu}{\bar \sigma})^N}{N!} \idotsint \limits_{-\infty}^{~~\infty} f_{X_1}(x_1) f_{X_2}(x_2) \dots f_{X_n}(x_n) ~dx_1 dx_2 \dots dx_n  \\
+    & = exp(2 \pi i f \frac{\sum^n_{i=1}x_i - \bar \mu}{\bar \sigma}) \idotsint \limits_{-\infty}^{~~\infty} f_{X_1}(x_1) f_{X_2}(x_2) \dots f_{X_n}(x_n) ~dx_1 dx_2 \dots dx_n \\
+    &= e^{-\frac{2 \pi i f \bar \mu}{\bar \sigma}}(\prod_{i=1}^{n} \int^{\infty}_{-\infty} exp(\frac{2 \pi i f}{\bar \sigma} x_i)f_{X_{i}}(x_i) ~dx_i) 
+\end{aligned}
+\end{equation} \par 
+\indent \par \noindent Take every integral out with the dummy variable written as $t$. 
+\begin{equation}
+\begin{aligned}
+    \int^{\infty}_{-\infty} exp(\frac{2 \pi i f}{\bar \sigma} t )f_{X_i}(t)~dt &= \int^{\infty}_{-\infty} (1+\frac{2 \pi i f}{\bar \sigma}t - \frac{2 \pi^2 f^2}{\bar \sigma^2} t^2 + \mathscr{O}(\bar \sigma^{-3}))f_{X_i}(t)~dt \\
+    & =  1+\frac{2 \pi i f}{\bar \sigma}E(X_i) - \frac{2 \pi^2 f^2}{\bar \sigma^2} E(X_i^2)+ \mathscr{O}(\bar \sigma^{-3}) \\
+    &=  exp\bigg[\text{ln}(1+\frac{2 \pi i f}{\bar \sigma}E(X_i) - \frac{2 \pi^2 f^2}{\bar \sigma^2} E(X_i^2)+ \mathscr{O}(\bar \sigma^{-3}))\bigg] \\
+    & = exp(\frac{2 \pi i f}{\bar \sigma} E(X_i) - \frac{2 \pi^2 f^2}{\bar \sigma^2} (E(X_i^2) - E^2(X_i)) + \mathscr{O}(\bar \sigma^{-3})) \\
+    & \approx exp(\frac{2 \pi i f}{\bar \sigma} E(X_i) - \frac{2\pi^2 f^2}{\bar \sigma^2} Var(X_i)) \\
+    &=  exp(\frac{2 \pi i f}{\bar \sigma} \mu_i - \frac{2\pi^2 f^2}{\bar \sigma^2} \sigma_i^2) \notag
+\end{aligned}
+\end{equation}
+Then substitute in the result for every integral in (5), we obtain
+\begin{equation}
+\begin{aligned}
+    \mathscr{F}^{-1}[f_{X_{nor}}(x)](f) &=
+    exp \bigg(-\frac{2 \pi i f \bar \mu}{\bar \sigma} \bigg)
+    exp \bigg(\frac{2 \pi i f}{\bar \sigma} \sum^n_{i=1} \mu_i - \frac{2 \pi^2 f^2}{\bar \sigma^2} \sum_{i=1}^n \sigma_i^2 \bigg) \\
+    &= e^{-2\pi^2f^2}
+\end{aligned}
+\end{equation}
+Then we just need to calculate $f_{X_{nor}}(x)$ from the inverse function.
+\clearpage
+We have
+\begin{equation}
+\begin{aligned}
+    f_{X_{nor}}(x) &= \int_{-\infty}^{\infty} e^{-2\pi i f x} \mathscr{F}^{-1}[f_{X_{nor}}(x)](f) ~df \\
+    &= \int_{-\infty}^{\infty} e^{-2\pi i f x} e^{-2\pi^2f^2} ~df \\
+    &= \frac{1}{\sqrt{2\pi}}e^{-\frac{~x^2}{2}}
+\end{aligned}
+\end{equation}
+This is exactly the form of the $p.d.f.$ to a normal distribution. Hence, we can conclude that $X_{nor}$ follows a normal distribution.
+\end{document}

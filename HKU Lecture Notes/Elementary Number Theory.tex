@@ -1,0 +1,298 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+\usepackage{amsfonts,amssymb}
+\usepackage{pdfpages}
+\usepackage{bm}
+\lhead{Elementary Number Theory}
+\rhead{\includegraphics[height = 0.75cm]{Auxiliary Files/Szgjzx-logo.png}}
+
+\geometry{a4paper,scale = 0.75}
+\begin{document}
+\section{Infinity of Prime Numbers}
+\subsection{Euler Product}
+We consider the following product
+\begin{equation}
+    \prod_{p \in \mathbb{P}} \frac{1}{1-\frac{1}{p^s}} = \prod_{p \in \mathbb{P}} \sum_{k=0}^{+\infty} \frac{1}{p^{ks}}
+\end{equation}
+As every integer can be represented as
+\begin{equation}
+    n = \prod_{\substack{p_i \in \mathbb{R} \\ \alpha_i \geq 0}} p_i^{\alpha_i}~\longrightarrow~\frac{1}{n^s} = \prod_{\substack{p_i \in \mathbb{P} \\ \alpha_i \geq 0}} \frac{1}{p_i^{\alpha_is}}
+\end{equation}
+Then 
+\begin{equation}
+    \prod_{p \in \mathbb{P}} \sum_{k=0}^{+\infty} \frac{1}{p^{ks}} = \sum_{n=1}^{+\infty}\frac{1}{n^s}
+\end{equation}
+\subsection{Infinity of Prime Numbers}
+Assume that there are a finite number of prime numbers, denoted as $\mathbb{P} = \{p_1, p_2, \dots, p_s \}$, then
+\begin{equation}
+    \sum_{n=1}^{N} \frac{1}{n} < \sum_{n=1}^{+\infty} \frac{1}{n} = \prod_{p \in 
+    \mathbb{P}} \frac{1}{1-\frac{1}{p^s}} = \prod_{p_i}^{s} \frac{1}{1-\frac{1}{p_i^s}}
+\end{equation} 
+As $N \rightarrow \infty$, the harmonic series diverges. Hence the inequality contradicts with the 
+fact that the RHS is a constant. Thus we can conclude that $s = \infty$, i.e. prime numbers are infinite many.
+\section{The Greatest Common Divisor Theory}
+We only give an important lemma of the GCD theory.
+\subsection{Lemma 2.1}
+\begin{equation}
+    \text{lcm}(a_1,a_2)\gcd(a_1,a_2) = a_1a_2
+\end{equation}
+\textbf{Proof} It is intuitive that
+\begin{equation}
+    \gcd\bigg( \frac{a_1}{\text{gcd}(a_1,a_2)},\frac{a_2}{\text{gcd}(a_1,a_2)}\bigg) = 1~\rightarrow~\text{lcm}\bigg(\frac{a_1}{\gcd(a_1,a_2)}, \frac{a_2}{\gcd(a_1,a_2)}\bigg) = \frac{a_1}{\gcd(a_1,a_2)} \cdot \frac{a_2}{\gcd(a_1,a_2)} \notag
+\end{equation}
+Then
+\begin{equation}
+    \gcd(a_1,a_2)^2~\text{lcm}\bigg(\frac{a_1}{\gcd(a_1,a_2)}, \frac{a_2}{\gcd(a_1,a_2)}\bigg) = a_1a_2 = \text{lcm}(a_1,a_2)\gcd(a_1,a_2)
+\end{equation}
+\subsection{Fermat's Little Theorem}
+Fermat's little theorem states that if $p$ is a prime number, then
+\begin{gather}
+    p \mid a^p - a,~~a \in \mathbb{Z} \\
+    p \mid a^{p-1} - 1,~~ a \in \mathbb{Z},~\gcd(a,p)=1
+\end{gather}
+\subsubsection*{Proof}
+\noindent \textbf{Lemma 2.2} For integer $1 \leq j \leq p-1$,
+\begin{equation}
+    p~\bigg|~\binom{p}{j}
+\end{equation}
+As $p$ is a prime number, then for $1 \leq j \leq p-1$,
+\begin{equation}
+    \gcd(p,j) = 1~~\rightarrow~~\gcd(p, j) = \gcd(p,p-j) = 1~~\rightarrow~~\gcd(p, j!(p-j)!) = 1
+\end{equation}
+As the combinatorial number is an integer, 
+\begin{equation}
+    \binom{p}{j} \in \mathbb{Z}~~\rightarrow~~j!(p-j)!~|~p!~~\rightarrow~~j!(p-j)!~|~(p-1)!
+\end{equation}
+Then we can conclude that
+\begin{equation}
+    p~\bigg|~\frac{p!}{j!(p-j)!} = \binom{p}{j}
+\end{equation}
+Then we may use mathematical induction in proving. For $a=1$, $p \mid 0$ holds. Assume that for $a=n$ the theorem holds, then for $a = n+1$,
+\begin{equation}
+    (n+1)^p - (n+1) = \sum_{i=0}^p \binom{p}{j} n^{j} - n - 1 = n^p - n + \sum_{j=1}^{p-1} \binom{p}{j} n^j
+\end{equation}
+Applying the condition and the lemma,
+\begin{equation}
+    p~|~n^p-p,~p~\bigg|~~\binom{p}{j}~~\rightarrow~~p~|~(n+1)^p-(n+1) \notag
+\end{equation}
+When $a,p$ are coprime, 
+\begin{equation}
+    p~|~a^p-a = a(a^{p-1}-1)~~\rightarrow~~p~|~a^{p-1}-1
+\end{equation}
+Thus we prove the \textbf{Fermat's little theorem}. \hfill $\blacksquare$
+\subsection{Lemma 2.2 (Existence of Modular Multiplicative Inverse)}
+\noindent \textcircled{1} If $m \geq 2$, $\text{gcd}(m,a) = 1$, then integer $d \leq m-1$ exists, such that $m|a^d-1$. \par \noindent
+\textbf{Proof} For every integer $1 \leq j \leq m$, the pseudo-division gives
+\begin{equation}
+    a^j = q_jm+r_j~\leftrightarrow~a^j \equiv r_j~(\text{mod}~m),~r_j \neq 0
+\end{equation}
+As there are $j-1$ possible values for $a^j~\text{mod}~m$, and $j$ numbers of residual $r_j$, then there must exists $k,b \in [1, m]$, such that
+\begin{equation}
+\left\{
+\begin{aligned}
+    &a^k = q_km+r_k \\ &a^b = q_bm+r_b 
+\end{aligned}
+\right. ,~~r_k = r_b
+\end{equation}
+Assume that $k > b$, then
+\begin{equation}
+    a^k - a^b = a^b(a^{k-b}-1) = (q_k-q_b)m
+\end{equation}
+As $\gcd(m,a) = 1$, it is easy to prove that $\gcd(m, a^b) = 1$. Hence,
+\begin{equation}
+    (q_k-q_b)m~|~a^b(a^{k-b}-1)~~\rightarrow~~m~|~(a^{k-b}-1)~~\xrightarrow{d = k-b}~~m~|~a^d-1
+\end{equation}
+\textcircled{2} If $d_0$ is the least integer in the set of $d$ in \textcircled{1}, called the \textbf{modular exponentiation} of $a$ to $m$, then $m|a^h-1$ if and only if $d_0|h$. \par \noindent 
+\subsubsection*{Proof}
+\noindent \textbf{Sufficiency} If $d_0|h$, then
+\begin{equation}
+    h = qd_0~~\rightarrow~~a^h-1 = a^{qd_0} - 1 = (a^{d_0}-1)\sum_{i=0}^{q-1}a^{id_0} \equiv 0~ (\text{mod}~m)
+\end{equation}
+\textbf{Necessity} The pseudo-division gives
+\begin{equation}
+    h = qd_0 + r~~0 \leq r < d_0
+\end{equation}
+Substitute in we obtain
+\begin{equation}
+    a^h-1 = a^{qd_0 + r} - 1 = a^r(a^{qd_0} - 1) + a^r - 1
+\end{equation}
+If $a^h-1 \equiv 0~(\text{mod}~m)$, then $m|a^r-1$. As $0 \leq r < d_0$, and the condition that $d_0$ is the least integer, the only value $r$ can take is $r=0$. Thus $d_0 | h$. \hfill $\blacksquare$
+\section{Fundamental Theorem of Arithmetic}
+\subsection{Content}
+\subsubsection{Theorem 1}
+If $p$ is a prime number, and $p~|~\prod_{i=1}^ka_i$, then
+\begin{equation}
+    p~|~a_j~~~1\leq j \leq k
+\end{equation}
+holds for at least one $j$.
+\subsubsection{Theorem 2}
+Any integer $a > 1$ can be uniquely represented as
+\begin{equation}
+    a = p_1p_2\cdots p_s
+\end{equation}
+where $p_j~1\leq j \leq s$ are all prime numbers. \par \noindent \textbf{Proof} Assume that the prime numbers are arranged in non-decreasing order, i.e. $p_1 \leq p_2 \leq \cdots \leq p_s$. If there is another decomposition
+\begin{equation}
+    a = p_1p_2\cdots p_s = q_1q_2 \cdots q_r~~~1\leq 2\leq \cdots \leq q_r
+\end{equation}
+As $q_1~|~a,~p_1~|~a$, then
+\begin{gather}
+\left\{
+\begin{aligned}
+    &q_1~|~p_1p_2\cdots p_s~\rightarrow~\exists~p_i,~q_1~|~p_i~~1 \leq i \leq r~\rightarrow~p_i = q_1\\
+    &p_1~|~q_1q_2\cdots q_r~\rightarrow~\exists~q_j,~p_1~|~q_j~~1 \leq j \leq s~\rightarrow~p_1=q_j
+\end{aligned}
+\right. ~\longrightarrow~p_1 \leq p_i = q_1 \leq q_j = p_1
+\end{gather}
+Hence $p_1=q_1$. Likewise we can derive that $p_i = q_i$ for $1 \leq i \leq \min(r,s)$. Assume that $r \geq s$, then
+\begin{equation}
+    q_{s+1}q_{s+2}\cdots q_r = 1
+\end{equation}
+which contradicts with the assumption that $q_i$ is a prime number, unless $r =s$. \hfill $\blacksquare$ \subsection{Corollary 1}
+If $p_1, p_2, \dots, p_s$ are all prime integers, and
+\begin{equation}
+    a = \prod_{i=1}^s p_i^{\alpha_i}~~~~b = \prod_{i=1}^s p_i^{\beta_i}
+\end{equation}
+then
+\begin{equation}
+\begin{aligned}
+    \gcd(a,b) &= \prod_{i=1}^s p_i^{\delta_i}~~~~\delta_i = \min(\alpha_i,\beta_i) \\
+    \text{lcm}(a,b) &= \prod_{i=1}^s p_i^{\gamma_i}~~~~\gamma_i = \max(\alpha_i,\beta_i)
+\end{aligned}
+\end{equation}
+Additionally, the summation of the divisors of integer $a$, denoted as  $\sigma(a)$, can be written as
+\begin{equation}
+    \sigma(a) = \prod_{i=1}^s \sigma(p_i^{\delta_i}) = \prod_{i=1}^s \sum_{j=0}^{\sigma_i} p_i^j = \prod_{i=1}^s \frac{p^{\sigma_{i+1}} - 1}{p_i - 1}
+\end{equation}
+\section{The Exponent of Prime Factors}
+For an integer $n$, the integer $\alpha$ for prime number $p$ such that $p^{\alpha} \parallel n!$ can be written as
+\begin{equation}
+    \alpha(p,n) = \sum_{i=1}^{\infty} \left[\frac{n}{p^i}\right]
+\end{equation}
+\subsection{Derivation}
+Denote the magnitude of the set $\{x | x~\text{mod}~p^i = 0,~1 \leq x \leq n\}$ as $c_i$. Then the magnitude of the set $\{x|~p^i \parallel x,~1\leq x \leq n\}$ is $d_i = c_{i} - c_{i+1}$. We can conclude that
+\begin{equation}
+    d_i = c_{i}-c_{i+1} = \left[\frac{n}{p^{i}}\right]  - \left[\frac{n}{p^{i+1}}\right]
+\end{equation}
+Thus
+\begin{equation}
+    \alpha(p,n) = \sum_{i=0}^{\infty}id_i = \sum_{i=1}^k \left[ \frac{n}{p^i}\right] = \sum_{i=1}^{\infty} \left[ \frac{n}{p^i}\right] ,~~p^k \parallel n
+\end{equation}
+\section{Corollary 1}
+One conclusion can be drawn that
+\begin{equation}
+    n!(m!)^n~\mid~(mn)!
+\end{equation}
+\textbf{Proof}
+Consider an arbitrary prime factor of the integer $m$. We need to prove that
+\begin{equation}
+    \alpha(p,n) + n\alpha(p,m) \leq \alpha(p,mn)~\Leftrightarrow~\sum_{j=1}^{\infty}\left[ \frac{n}{p^j}\right] + n \sum_{j=1}^{\infty}\left[ \frac{m}{p^j} \right] \leq \sum_{j=1}^{\infty}\left[ \frac{mn}{p^j}\right]
+\end{equation}
+Consider $m = p_1^{\alpha_1}p_2^{\alpha_2}\cdots p^{l} \cdots p_s^{\alpha_s}$, then write $m = cp^l$. For $j \leq l$, we have
+\begin{equation}
+    \left[\frac{mn}{p^j} \right] = cnp^{l-j} = n\left[\frac{m}{p^j}\right]~\rightarrow~\sum_{j=1}^{l} \left[\frac{mn}{p^j} \right] = \sum_{j=1}^l n\left[\frac{m}{p^j}\right]
+\end{equation}
+For $j > l$, we have the pseudo-division $m = q_jp^{j} + r_j$, where $r_j \in [1, p^{j}-1]$. Thus
+\begin{gather}
+    \left[\frac{mn}{p^j}\right] = \left[ nq_j + n\frac{r_j}{p^j}\right] = nq_j + \left[\left\{\frac{m}{p^j}\right\}n\right] \geq n\left[\frac{m}{p^j}\right] + \left[ \frac{n}{p^{j-l}}\right]  \notag \\
+    \rightarrow~\sum_{j>l} \left[\frac{mn}{p^j}\right] \geq n\sum_{j>l}\left[\frac{m}{p^j}\right] + \sum_{j-l > 0}\left[\frac{n}{p^{j-l}}\right]
+\end{gather}
+Sum the two equations up we obtain \hfill $\blacksquare$
+\begin{equation}
+    \sum_j \left[\frac{mn}{p^j}\right] \geq n\sum_{j}\left[\frac{m}{p^j}\right] + \sum_{j} \left[\frac{n}{p^{j}}\right] \notag
+\end{equation}
+\section{Euclid Algorithm}
+\subsection{Content}
+If two integers $u_0, u_1$, $u_1 \nmid u_0$. Then we can give the following pseudo-division method
+\begin{equation}
+\begin{aligned}
+    &u_0 = q_0u_1 + u_2,~~~~0 < u_2 < |u_1|\\
+    &u_1 = q_1u_2 + u_3,~~~~0 < u_3 < u_2 \\
+        &~~\vdots\\
+    &u_{k-1} = q_{k-1}u_k + u_{k+1},~~~~0 < u_k < u_{k-1}\\
+    &u_k = q_k u_{k+1}
+\end{aligned}
+\end{equation}
+And
+\begin{equation}
+    u_{k+1} = \text{gcd}(u_0,u_1)
+\end{equation}
+Or
+\begin{equation}
+    \text{gcd}(u_i,u_j) = \text{gcd}(u_j, u_i~\text{mod}~u_i)
+\end{equation}
+The equations above indicates that the greatest common divisor of integers $a_1, a_2, \dots, a_k$, the coefficients $x_1, x_2, \dots, x_k$ exists, such that
+\begin{equation}
+    \text{gcd}(a_1,a_2,\dots,a_k) = a_1x_1+a_2x_2+\cdots+a_kx_k
+\end{equation}
+\subsection{Lemma 1.1}
+A lemma can be given that
+\begin{equation}
+    \text{gcd}(2^m-1,2^n-1) = 2^{\text{gcd}(m,n)}-1
+\end{equation}
+\textbf{Proof} As
+\begin{equation}
+    m = qn + r~~\rightarrow~~2^{m}-1=2^{qn+r}-2^r+2^r-1=2^r(2^{qn}-1)+2^r-1
+\end{equation}
+Hence
+\begin{equation}
+    \text{gcd}(2^m-1,2^n-1) = \text{gcd}(2^r-1,2^n-1) = \text{gcd}(2^n-1,2^{\text{gcd}(m,n)}-1) = \cdots = 2^{\text{gcd(m,n)}}-1 \notag
+\end{equation}
+\section{Extended Euclidean Algorithm}
+Based on the Euclidean algorithm, the extended one solve the equation 
+\begin{equation}
+    ax + by = \gcd(a,b)
+\end{equation}
+and calculates the modular multiplicative inverse at the same time. 
+\subsection{Implementation}
+\subsubsection{Particular Solution}
+Assume that there are two equations, where
+\begin{equation}
+\left\{
+\begin{aligned}
+    &ax_0 + by_0 = \gcd(a, b) \\
+    &bx_1 + (a~\text{mod}~b)y_1 = \gcd(b, a~\text{mod}~b) = \gcd(a, b)\\
+\end{aligned}
+\right.
+\end{equation}
+Then we can conclude that 
+\begin{equation}
+    ax_0 + by_0 = bx_1 + (a~\text{mod}~b)y_1 = bx_1 + (a - b\lfloor \frac{a}{b} \rfloor )y_1
+\end{equation}
+As $a, b$ are arbitrary integers, we have
+\begin{equation}
+    b(x_1 - \lfloor \frac{a}{b} \rfloor y_1 - y_0) = a(y_1 - x_0)~\rightarrow~\left\{ \begin{aligned}
+        &x_0 = y_1 \\ &y_0 = x_1 - \lfloor \frac{a}{b} \rfloor y_1
+    \end{aligned} \right.
+\end{equation}
+Then by recursively repeating the bottom-up recursion that
+\begin{equation}
+    \left\{ \begin{aligned}
+        &x_{k} = y_{k+1} \\ &y_{k} = x_{k+1} - \lfloor \frac{a_k}{b_k} \rfloor y_{k+1} \end{aligned}
+    \right.~~\left\{ \begin{aligned}&a_{k+1} = b_{k} \\ &b_{k+1} = a_k~\text{mod}~b_k   \\ &\gcd(a_{k+1}, b_{k+1}) = \gcd(a_{k}, a_{k}) \end{aligned} \right.
+\end{equation}
+The terminal state is the equation $ax_n + by_n = \gcd(a_n, b_n) = \gcd(a, b)$, where $b_n = 0$. We instantly solve that $x_n = 1, y_n = 0, a_n = \gcd(a, b), b_n = 0$. If we assign the terminal value to the bottom variables, then the traceback in every step will calculate the particular solution $(x_0, y_0)$ for the original equation. 
+\subsubsection{Complementary Solution}
+From the particular solution the complementary solution can be derived. Consider the original equation
+\begin{equation}
+    ax_0 + by_0 = \gcd(a, b)~\rightarrow~a\left(x_0 - \frac{b}{\gcd(a,b)}t\right) + b\left(y_0 - \frac{a}{\gcd(a,b)}t\right) = \gcd(a,b)
+\end{equation}
+Hence, we conclude that the complementary solution for the equation is
+\begin{equation}
+    \left \{ \begin{aligned} &x = x_0 - \frac{b}{\gcd(a,b)}t \\ &y = y_0 - \frac{a}{\gcd(a,b)}t \end{aligned} \right. 
+\end{equation}
+\section{Non-zero / Positive Solution to Diophantine Equation}
+\end{document}

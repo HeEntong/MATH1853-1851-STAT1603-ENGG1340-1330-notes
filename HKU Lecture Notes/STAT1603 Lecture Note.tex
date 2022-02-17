@@ -1,0 +1,189 @@
+\documentclass[16pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+\usepackage{amsfonts,amssymb}
+\usepackage{pdfpages}
+\usepackage{bm}
+
+\geometry{a4paper,scale=0.75}
+\lhead{Introductory Statistics}
+\rhead{STAT 1603}
+\begin{document}
+STAT1603 Lecture Notes \par
+\small{Created by He Entong}
+\section{Convolution}
+We are interested in the $p.d.f.$ of the sum of two independent variables $X, Y$. That is, the $p.d.f.$ of $Z = X + Y$. We first consider the $c.d.f.$ of $Z$.
+\begin{equation}
+    F_Z(z) = F_Z(x+y) = \iint \limits_{D} f_{X,Y}(x, y) ~dxdy
+\end{equation}
+where $D $ is the domain of integration.
+Applying the variable substitution
+\begin{equation}
+\left\{
+\begin{aligned}
+    & x = z - y\\
+    & y = y
+\end{aligned}
+\right.
+\end{equation}
+We obtain
+\begin{equation}
+\begin{aligned}
+    F_Z(z) &= \iint \limits_{D'} f_{X,Y}(z-y, y)~\mathbb{J}(x,y) dydz\\ 
+    &= \iint \limits_{D'} f_{X, Y}(z-y, y)~\left| \begin{array}{cccc}
+    \frac{\partial(z-y)}{\partial y} &\frac{\partial(z-y)}{\partial z} \\
+    \frac{\partial y}{\partial y} &\frac{\partial y}{\partial z} \\
+    \end{array} \right| dydz \\
+    &= \iint \limits_{D'} f_{X,Y}(z-y, y)~dydz \\
+    &= \int_{D_Z}~dz~\int_{D_Y} f_{X,Y}(z-y, y)~dy
+\end{aligned}
+\end{equation}
+Then we have
+\begin{equation}
+\begin{aligned}
+    f_Z(z) &= \frac{d}{dz} F_Z(z) \\
+    &= \frac{d}{dz} \int_{D_Z} ~dz ~\int_{D_Y} f_{X,Y}(z-y, y)~dy \\
+    &= \int_{D_Y} f_{X,Y}(z-y, y) ~dy
+\end{aligned}
+\end{equation}
+Now we may well generalize the $p.d.f.$ of any random variable which is a definite function of two arbitrary random variables, that is, $Z = k(x, y)$
+\begin{equation}
+    F_Z(z) = F_Z(k(x,y)) = \iint \limits_{D} f_{X,Y}(x, y) ~dxdy
+\end{equation}
+The variable substitution is
+\begin{equation}
+\left\{
+\begin{aligned}
+    & x = g(y,z),~~g(y,z) \sim k(x,y)\\
+    & y = y \\
+\end{aligned}
+\right.
+\end{equation}
+Then we obtain
+\begin{equation}
+\begin{aligned}
+    F_Z(z) &= \iint \limits_{D'} f_{X,Y}(g(y,z), y)~\mathbb{J}_{g,y} (y,z)dydz \\
+    &= \iint \limits_{D'} f_{X,Y}(g(y,z), y)~\left| \begin{array}{cccc} \frac{\partial g}{\partial y} &\frac{\partial g}{\partial z} \\
+    \frac{\partial y}{\partial y} &\frac{\partial y}{\partial z} \\
+    \end{array} \right| dydz \\
+    &= \iint \limits_{D'} f_{X,Y}(g(y,z), y) \bigg|\frac{\partial g}{\partial z}\bigg|~dydz \\
+\end{aligned}
+\end{equation}
+Hence,
+\begin{equation}
+\begin{aligned}
+    f_Z(z) = \frac{d}{dz} F_Z(z) &= \frac{d}{dz}\iint \limits_{D'} f_{X,Y}(g(y,z), y) \bigg|\frac{\partial g}{\partial z}\bigg|~dydz \\
+    &= \frac{d}{dz} \int_{D_Z} ~dz \int_{D_Y} f_{X,Y}(g(y,z), y)\bigg|\frac{\partial g}{\partial z}\bigg|~dy \\
+    &= \boxed{\int_{D_Y} f_{X,Y}(g(y,z), y)\bigg|\frac{\partial g}{\partial z}\bigg|~dy}
+\end{aligned}
+\end{equation}
+\section{Distribution of Summation of Normally Distributed Random Variables}
+Assume variables $X_1$, $X_2$ are both normally distributed, that gives
+\begin{equation}
+f_{X_1}(x) = \frac{1}{\sqrt{2 \pi}\sigma_1} e^{-\frac{(x-\mu_1)^2}{2\sigma_1^2}},~f_{X_2}(x) = \frac{1}{\sqrt{2 \pi}\sigma_2} e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}}
+\end{equation}
+Define a new summation variable $W = X_1 + X_2$, applying the convolution we obtain
+\begin{equation}
+\begin{aligned}
+    &f_W(w) = \int^{+\infty}_{-\infty} f_{X_1, X_2} (w-x, x)~dx \\ &=
+    \int^{+\infty}_{-\infty} f_{X_1}(w-x) f_{X_2}(x)~dx \\
+    &= \frac{1}{2\pi \sigma_1 \sigma_2}\int^{+\infty}_{-\infty} e^{-\frac{(w-x-\mu_1)^2}{2\sigma_1^2}}e^{-\frac{(x-\mu_2)^2}{2\sigma_2^2}}~dx \\
+    &= \frac{1}{2\pi \sigma_1 \sigma_2} exp\bigg\{ -\frac{\sigma_1^2 + \sigma_2^2}{2\sigma_1^2\sigma_2^2}\bigg[\frac{\sigma_1\sigma_2(w-(\mu_1+\mu_2))}{\sigma_1^2 + \sigma_2^2} \bigg]^2 \bigg\} \int_{-\infty}^{+\infty} exp\bigg\{ -\frac{\sigma_1^2+\sigma_2^2}{2\sigma_1^2\sigma_2^2} \bigg[x+\frac{(\mu_1-w)\sigma_2^2-\mu_2\sigma_1^2}{\sigma_1^2+\sigma_2^2}\bigg]^2 \bigg\}~dx \\
+    &= \frac{1}{\sqrt{2\pi(\sigma_1^2+\sigma_2^2)}}exp\bigg\{-\frac{1}{2}\frac{[w-(\mu_1+\mu_2)]^2}{\sigma_1^2 + \sigma_2^2}\bigg\} \notag
+\end{aligned}
+\end{equation}
+Hence we obtain that the sum of two normally distributed variables is also a normal variable, with the mean $\mu = \mu_1 + \mu_2$, and the variance $\sigma^2  = {\sigma_1}^2 + {\sigma_2}^2$
+\section{$\chi^2$-Distribution, F Distribution and Student t-Distribution}
+\subsection{$\chi^2$-Distribution}
+If a random variable, denoted by $X$, follows a standard normal distribution, that is
+\begin{equation}
+    X \sim N(0,1),~~f_X(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}
+\end{equation}
+We are interested in the distribution of variable $X^2$. We have:
+\begin{equation}
+\begin{aligned}
+    F(X^2\leq x) &= F(X\leq \sqrt{x})\\
+    &= \int^{\sqrt{x}}_{-\infty} \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}\\
+    \text{Hence,}~~f_{X^2}(x) &= \frac{d}{dx}\int^{\sqrt{x}}_{-\infty} \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}\\
+    &= \frac{1}{\sqrt{2\pi}} e^{-\frac{1}{2}x} \frac{1}{2\sqrt{x}} \\
+    &= \frac{e^{-\frac{1}{2}x} x^{-\frac{1}{2}} (\frac{1}{2})^{\frac{1}{2}}}{\Gamma(\frac{1}{2})}
+\end{aligned}
+\end{equation}
+Hence we conclude that the variable $X^2$ follows a gamma distribution, that is,
+\begin{equation}
+    X^2 \sim \text{Ga}(\frac{1}{2},\frac{1}{2})
+\end{equation}
+Now we are interested in the summation of $i.i.d.$ random variables $Z = X_1^2 + X_2^2 + \cdots + X_n^2$.
+We may first consider the summation of two variables with gamma distribution. That is
+\begin{equation}
+    X_1^2 \sim \text{Ga}(\beta, \alpha_1),~~X_2^2 \sim \text{Ga}(\beta,\alpha_2)
+\end{equation}
+Then the $p.d.f.$ of the summation variable $Z = X_1^2 + X_2^2$ is
+\begin{equation}
+\begin{aligned}
+    f_Z(z)&=\int \limits_{x\in D}\frac{\beta^{\alpha_1}(z-x)^{\alpha_1-1} e^{-\beta(z-x)}}{\Gamma(\alpha_1)} \frac{\beta^{\alpha_2}x^{\alpha_2-1}e^{-\beta_2x}}{\Gamma(\alpha_2)}~\text{d}x\\
+    &=\frac{\beta^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\beta z}\int \limits_{x\in D} (z-x)^{\alpha_1-1} x^{\alpha_2-1}~\text{d}x\\
+    &= z^{\alpha_1+\alpha_2-1}\frac{\beta^{\alpha_1+\alpha_2}}{\Gamma(\alpha_1)\Gamma(\alpha_2)} e^{-\beta z} ~\text{B}(\alpha_1,\alpha_2) \\
+    &= \frac{\beta^{\alpha_1+\alpha_2} z^{\alpha_1+\alpha_2-1}e^{-\beta z}}{\Gamma(\alpha_1+\alpha_2)} \\
+    \text{Henc}&\text{e,}~~Z \sim \text{Ga}(\beta, \alpha_1+\alpha_2)
+\end{aligned}
+\end{equation}
+Using the feature of gamma distribution repeatedly, we obtain random variable $Z$, where $Z= X_1^2+X_2^2+\cdots X_n^2$ where $X_i^2 \sim Ga(\frac{1}{2},\frac{1}{2}) $ follows gamma distribution. That is,
+\begin{equation}
+    Z\sim \text{Ga}(\frac{1}{2} ,\frac{n}{2})\equiv \chi^2_{(n)},~~\boxed{f_Z(z) = \frac{z^{\frac{n}{2}}e^{-\frac{1}{2}z}}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})}}
+\end{equation}
+We call the distribution a $\chi^2$ distribution with $n$ degrees of freedom.
+
+\subsection{F Distribution}
+F Distribution focuses on the distribution of a fraction of two random variables, both follow $\chi^2$-distribution. We give
+\begin{equation}
+    F = \frac{\frac{X_1}{m}}{\frac{X_2}{n}},~~X_1 \sim \chi^2_{(m)},~~X_2 \sim \chi^2_{(n)}
+\end{equation}
+Then we are interested in the $p.d.f.$ of random variable $F$, applying convolution we obtain
+\begin{equation}
+\begin{aligned}
+    f_Z(x) &= \int^{+\infty}_{0} f_{X_1}(\frac{m}{n}xt) f_{X_2}(t)\frac{\partial}{\partial z}\bigg(\frac{m}{n}zt\bigg)~\text{d}t \\
+    &= \int^{+\infty}_{0} \frac{e^{-\frac{m}{2n}xt} (\frac{m}{n}xt)^{\frac{m}{2}-1}}{2^{\frac{m}{2}}\Gamma(\frac{m}{2})} \frac{e^{-\frac{1}{2}t}t^{\frac{n}{2}-1}}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} \frac{\partial}{\partial z}\bigg(\frac{m}{n}zt\bigg)~\text{d}t \\
+    &= \frac{m}{n} \frac{(\frac{m}{n}x)^{\frac{m}{2}-1}}{2^{\frac{m+n}{2}} \Gamma(\frac{m}{2} )\Gamma(\frac{n}{2})} \int_{0}^{+\infty} e^{-\frac{m}{2n}xt} e^{-\frac{1}{2}t} t^{\frac{m+n}{2}-1}~\text{d}t\\
+    &= \boxed{\bigg(\frac{m}{n}\bigg)^{\frac{m}{2}} x^{\frac{m}{2}-1} \bigg(\frac{m}{n}x+1\bigg)^{-\frac{m+n}{2}} \frac{1}{\text{B}(\frac{m}{2},\frac{n}{2})}}
+\end{aligned}
+\end{equation}
+\subsection{Student t-Distribution}
+Given two random variable $X_1, X_2$, following standard normal distribution and $\chi^2$ distribution respectively. Then we define the distribution a new random variable $T = \frac{X_1}{\sqrt{\frac{X_2}{n}}}$ is following as the t-distribution. The following will derive the $p.d.f.$ of variable T.
+\begin{equation}
+\begin{aligned}
+    X_1 \sim \text{N}(0,1),&~~f_{X_1}(x) = \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}x^2}\\
+    X_2 \sim \chi^2(n),&~~f_{X_2}(x) = \frac{x^{\frac{n}{2}}e^{-\frac{1}{2}x}}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})}
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+    f_{T}(t) &= \int \limits_{x\in D} \frac{1}{\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{x}{2n}t^2)} \frac{x^{\frac{n}{2}-1}e^{-\frac{1}{2}x}}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} \frac{\partial}{\partial t} \bigg(t\sqrt{\frac{x}{n}}\bigg)~\text{d}x \\
+    &= \int \limits_{x\in D} \frac{1}{\sqrt{2\pi n}}e^{-\frac{1}{2}(\frac{x}{2n}t^2)} \frac{x^{\frac{n-1}{2}}e^{-\frac{1}{2}x}}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} ~\text{d}x \\
+    &= \frac{1}{\sqrt{2 \pi n}} \frac{1}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} \int^{+\infty}_{-\infty} x^{\frac{n-1}{2}}e^{-\frac{t^2+n}{2n} x} ~\text{d} x \\
+    &= \frac{1}{\sqrt{2 \pi n}} \frac{1}{2^{\frac{n}{2}}\Gamma(\frac{n}{2})} \Gamma\bigg(\frac{n+1}{2}\bigg)\bigg(\frac{2n}{t^2+n} \bigg)^{\frac{n+1}{2}}  \\
+    &= \boxed{\frac{\Gamma(\frac{n+1}{2})}{\sqrt{\pi n } ~\Gamma(\frac{n}{2})} \bigg(1+\frac{t^2}{n}\bigg)^{-\frac{n+1}{2}}}
+\end{aligned}
+\end{equation}
+This is the $p.d.f.$ of a t-distribution of $n$ degrees of freedom. It is effective in t-Test while analyzing a small number of samples.
+\section{$\chi^2$-Test}
+$\chi^2$ test is used to determine the difference between the hypothesis model and the sample. It is usually applied on a $m \times n$ label, with each data denoted as $f_{ij}$. If under the hypothesis $H_0$, each data should be $f_{\text{hypo}~ij}$, then we build up a variable
+\begin{equation}
+    \chi^2 = \sum_{i=1}^{m} \sum_{j=1}^{n} \frac{(X_{\text{data}~ij} - X_{\text{hypo}~ij})^2}{X_{\text{hypo}~ij}} \sim \chi^2_{(m-1)(n-1)}
+\end{equation}
+This follows a $\chi^2$ distribution with degree of freedom $(m-1)(n-1)$. Then we substitute the data in to get the test value of $\chi^2_{\text{T.S.}}$. And compare it with the correspond critical value given by $\chi^2_{(m-1)(n-1)} \alpha$.
+\includepdf[pages = 262-282]{STAT1603 Files/茆诗松 概率论与数理统计.pdf}
+\end{document}

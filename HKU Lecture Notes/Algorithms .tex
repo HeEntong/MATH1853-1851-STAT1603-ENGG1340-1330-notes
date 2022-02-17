@@ -1,0 +1,289 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+\usepackage{amsfonts,amssymb}
+\usepackage{pdfpages}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+
+\lhead{Algorithms}
+\geometry{a4paper, scale = 0.75}
+\begin{document}
+\section{Basic Algorithms}
+\subsection{Sorting}
+\subsubsection{Selection Sort}
+\noindent \textbf{Method}
+The algorithm finds the $i^{th}$ smallest number and swap it with the $i^{th}$ number in the array.
+\par \noindent \textbf{Implementation}
+\begin{algorithm}
+    \caption{selectionSort(A)}
+    \label{selSort}
+    \begin{algorithmic}
+        \FOR{$i = 1$ \TO$n-1$}
+        \STATE{$pt \gets i$}
+        \FOR{$j = i+1$ \TO $n$}
+        \IF{$A[i] < A[pt]$}
+        \STATE{$pt \gets j~~~\backslash \backslash \text{keep finding the smallest number in the rest of the array}$} \ENDIF
+        \STATE swap($A[i], A[pt])$
+        \ENDFOR \ENDFOR
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity}
+\paragraph{Average}
+\begin{equation}
+    E[T_i] = \Theta(\frac{1}{\frac{1}{n-i}}) = \Theta(n-i)~\rightarrow~E[T] =  \sum_{i=1}^{n-1}T_i = \Theta(n^2)
+\end{equation}
+\paragraph{Ideal(array is already sorted)}
+\begin{equation}
+    T = \sum_{i=1}^{n-1}\Theta(1)= \Theta(n)
+\end{equation}
+\subsubsection{Bubble Sort}
+\noindent \textbf{Method} The bubble sort algorithm selects the largest number in an array at one time. The largest number `floats' onto the top like a bubble. \par \noindent 
+\textbf{Implementation} 
+\begin{algorithm}
+    \caption{bubbleSort(A)}
+    \label{bubSort}
+    \begin{algorithmic}
+        \FOR{$i = 1$ \TO $n$}
+        \FOR{$j = 1$ \TO $n - i - 1$}
+        \IF{ $A[j] > A[j+1]$}
+        \STATE{swap($A[j],A[j+1]$)}
+        \ENDIF
+        \ENDFOR
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity} For every floating up process, if the magnitude of the current array is $k$, then the floating process has the time cost
+\begin{equation}
+\begin{aligned}
+    E[T_k] &= E[\text{swapping times}]\cdot\Theta(1)\\
+    &= \bigg(\frac{1}{k}\sum_{j=1}^{k}(k-j)\bigg)\cdot \Theta(1)= \Theta(k)
+\end{aligned}
+\end{equation}
+Then the total time complexity is
+\begin{equation}
+    E[T] = \sum_{k=1}^{n}T_k = \Theta(n^2)
+\end{equation}
+\subsubsection{Insertion Sort}
+\noindent \textbf{Method} Insertion sort separates the array into the unsorted part and the sorted one. Each time it deals with the first element in the unsorted part and find the right place for it. \par \noindent 
+\textbf{Implementation}
+\begin{algorithm}
+    \caption{insertionSort(A)}
+    \label{insSort}
+    \begin{algorithmic}
+        \REQUIRE{$n = A.\text{size} \geq 2$}
+        \FOR{$i=2$ \TO $n$}
+        \STATE{$key\gets A[i]$}
+        \STATE{$j \gets i-1$}
+        \WHILE{$j > 0$ and $A[j] > key$}
+        \STATE{$A[j+1] \gets A[j]$}
+        \STATE{$j = j-1$}
+        \ENDWHILE
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm} \par \noindent 
+\textbf{Complexity}
+Same as selection sort, the time complexity of insertion sort is
+\begin{equation}
+    E[T] = \sum_{k=1}^n T_k = \Theta(n^2),~~T_k = \Theta(k)
+\end{equation}
+\subsubsection{Counting Sort}
+\noindent \textbf{Method}
+The counting sort requires an extra auxiliary array to store the elements temporarily. For every value in the elements, the algorithm counts the number of times it appears, store it in the extra array, and thus calculating its prefix sum (index). Then the elements will be assigned back to the original array. \par \noindent
+\textbf{Implementation} \clearpage
+\begin{algorithm}
+    \caption{countingSort(A)}
+    \label{coutSort}
+    \begin{algorithmic}
+        \REQUIRE $low \gets \text{smallest element}$,~~ $up \gets \text{largest element},~~C.\text{size} = w = up - low + 1$ 
+        \FOR{$i = 1$ \TO $w$ }
+        \STATE{$C[i] = 0$}
+        \ENDFOR
+        \FOR{$i = 1$ \TO $n$}
+        \STATE{$C[A[j]] \gets C[A[j]] + 1$}
+        \ENDFOR
+        \STATE{$j \gets 1$}
+        \FOR{$i = 1$ \TO $w$}
+        \WHILE{$C[i] \neq 0$}
+        \STATE{$A[j] \gets i$}
+        \STATE{$C[i] \gets C[i] - 1$}
+        \STATE{$j \gets j + 1$}
+        \ENDWHILE
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity} Scanning and filling the auxiliary array, as well as refilling the original array both take linear time. Thus the time complexity is
+\begin{equation}
+    E[T] = \Theta(n+w)
+\end{equation}
+\subsubsection{Fast Sort}
+\noindent \textbf{Method} The fast sort algorithm is based on a recursive manipulation, namely PARTITION. It selects the last element in the array (pivot), and separates it into the left part (all elements in it are smaller than the pivot) and the right part (vice versa).\par \noindent 
+\begin{algorithm}
+    \caption{PARTITION(A, $left$, $right$, $pivot$)}
+    \label{part}
+    \begin{algorithmic}
+        \IF{$A$.size = $right - left + 1$ = 1}
+        \STATE{$A \gets A$}
+        \ELSE
+        \STATE{swap$(A[pivot], A[right])$}
+        \STATE{$j \gets left$}
+        \FOR{$i = left$ \TO $right-1$}
+        \IF{$A[i] \leq A[right]$}
+        \STATE{swap($A[i], A[j]$)}
+        \STATE{$j \gets j+1$}
+        \ENDIF
+        \ENDFOR
+        \STATE{swap($A[right], A[j]$)}
+        \RETURN{$j$}
+        \ENDIF
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+Hence the fast sort algorithm can be aligned by recursively calling the PARTITION manipulation.
+\begin{algorithm}
+    \caption{fastSort(A)}
+    \label{faSort}
+    \begin{algorithmic}
+        \REQUIRE{$A$.size = $n$,~~
+        $middle \gets$ PARTITION($A$, 1, $n$, random(1, $n$))}
+        \STATE{$A$.left $\gets$ $A.[1,\dots,middle-1]$} 
+        \STATE{$A$.right $\gets$ $A.[middle+1,\dots,n]$}
+        \STATE{fastSort($A$.left, 1, $middle-1$)}
+        \STATE{fastSort($A$.right, $middle+1$, $n$)}
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity}
+The average time complexity can be given by the recurrence
+\begin{equation}
+\begin{aligned}
+    E[T(n)] = E[T(j)] + E[T(n-j)] + \Theta(n)
+\end{aligned}
+\end{equation}
+where $j$ is the index of the eventual position of the randomly selected pivot. The expected height of the recursion tree is obviously $\Theta(\text{log}n)$. Hence the time complexity is
+\begin{equation}
+    E[T(n)] = \Theta(n\text{log}n)
+\end{equation}
+\subsubsection{Radix Sort}
+\noindent \textbf{Method}
+Radix sort requires the elements in the array to be of same digits. The algorithm sort the elements according to one definite digit at a time with a stable sorting method (usually the counting sort). \par \noindent
+\textbf{Implementation}
+\begin{algorithm}
+    \caption{radixSort(A)}
+    \label{radSort}
+    \begin{algorithmic}
+        \REQUIRE{$A[i]_{1 \leq i \leq n}$ has same digits $d$}
+        \FOR{$i = 1$ \TO $d$}
+        \STATE{sort the elements according to the $d^{th}$ digit}
+        \ENDFOR
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity}
+The inner sorting requires a stable sorting method. A usual selection is the counting sort. Denote the magnitude to the range of numbers in all the digits as $w$, and the quantity of the array elements as $n$. The upper bound of time is intuitive:
+\begin{equation}
+    E[T] = O(nw)
+\end{equation}
+\subsubsection{Bucket Sort} \noindent
+\textbf{Method} Bucket sort deals with float numbers that falls into the interval $[0,1]$. For integers, we can use a definite function to map them into this interval. Then we separate $[0, 1]$ into $n$ sub-intervals (buckets), inside which we apply the elements using insertion sort (an ideal stable sorting method). Then we sort the buckets using radix sort depending on the first non-zero digits of the first elements in the buckets. \clearpage
+\noindent
+\textbf{Implementation} 
+\begin{algorithm}
+    \caption{bucketSort(A)}
+    \label{bucketSort}
+    \begin{algorithmic}
+        \REQUIRE{$A[i], 1\leq i \leq n$ hashed into $[0,1]$}
+        \REQUIRE{$bucket[i]$ $\gets$ elements in $[(i-1)/n,i/n]$}
+        \FOR{$i=1$ \TO $n$}
+        \STATE{insertionSort($bucket[i]$)}
+        \ENDFOR
+        \STATE{radixSort($A$) according to $bucket[i][1]$}
+    \end{algorithmic}
+\end{algorithm} \par \noindent
+\textbf{Complexity}
+Inside each bucket, the insertion sort takes square time complexity, and the external sorting takes linear time. Hence, we obtain the equation that
+\begin{equation}
+    T(n) = \Theta(n) + \sum_{i=1}^{n} \Theta(n_i^2)
+\end{equation}
+The distribution of the elements only affects the last term, so we are interested in $E[\sum_{i=1}^{n} \Theta(n_i^2)]$.
+\begin{equation}
+\begin{aligned}
+    E[\sum_{i=1}^{n} \Theta(n_i^2)] &= \Theta(\sum_{i=1}^n E(n_i^2)) \\
+    &= \Theta\left[\sum_{i=1}^n \sum_{j = 0}^{n} j^2p(n_i^2 = j)\right] = \Theta\left[\sum_{i=1}^n \sum_{j = 0}^{n} j^2 ((\frac{1}{n})^j(1-\frac{1}{n})^{n-j})\right] \\
+    &= \Theta\left[\sum_{i=1}^n \frac{\text{d}}{\text{d}t}\sum_{j=0}^{n}e^{tj}(\frac{1}{n})^{j}(1-\frac{1}{n})^{n-j}\right]\\
+    &= \Theta(\sum_{i=1}^n 2-\frac{1}{n}) = \Theta(n)
+\end{aligned}
+\end{equation}
+Hence, $T(n) = \Theta(n)$. The bucket sort is a linear-time sorting.
+\section{Mathematics}
+\subsection{Euclid Algorithm}
+In order to find the greatest common divisor for integer $a, b$, where $a \geq b$, Euclid algorithm gives
+\begin{equation}
+    \text{gcd}(a,b) = \text{gcd}(a~\text{mod}~b, b)
+\end{equation}
+The proof is almost intuitive, as
+\begin{equation}
+    \exists~k,~a = kb + n\big|_{n \leq b}~\rightarrow~\text{gcd}(a,b) = \text{gcd}(kb+n,b) = \text{gcd}(n, b) = \text{gcd}(a~\text{mod}~b,b)
+\end{equation}
+The following gives the implementation
+\begin{algorithm} 
+	\caption{gcd(a,b)} 
+	\label{gcd} 
+	\begin{algorithmic}
+		\REQUIRE $a \geq b$ 
+		\IF{$b = 0$}
+		\RETURN $a$
+		\ELSE
+		\RETURN gcd($b, a~\text{mod}~b$)
+		\ENDIF
+	\end{algorithmic} 
+\end{algorithm}
+\subsection{Chinese Remainder Theorem}
+Given a linear residual equation 
+\begin{equation}
+\begin{aligned}
+    x &\equiv a_1 (\text{mod}~n_1) \\
+    x &\equiv a_2 (\text{mod}~n_2) \\
+      &\vdots \\
+    x &\equiv a_k (\text{mod}~n_k) \\
+\end{aligned}
+\end{equation}
+where
+\begin{equation}
+    \text{gcd}( n_1, n_2,\dots,n_k) = 1
+\end{equation}
+\textbf{Solution} Chinese Remainder Theorem gives
+\begin{equation}
+    x = \bigg(\sum_{i=1}^k c_i a_i\bigg)~\text{mod}~n
+\end{equation}
+where
+\begin{equation}
+    m_i = \frac{\prod_{j=1}^k n_j}{n_i},~~(m_im_i^{-1})\text{mod}~n_i = 1,~~c_i = m_im_i^{-1}
+\end{equation}
+\textbf{Rationality} Firstly we calculate
+\begin{equation}
+\begin{aligned}
+    (\sum_{j=1}^k c_j a_j) \text{mod}~n_i &= \bigg(\sum_{j=1}^k m_jm_j^{-1}a_j\bigg)\text{mod}~n_i\\
+    &= \sum_{j=1}^k a_jm_j^{-1}\bigg(\frac{\prod_{p=1}^{k}n_k}{n_j}\bigg)\text{mod}~n_i \\
+    &= a_i m_i m_i^{-1}~\text{mod}~n_i
+\end{aligned}
+\end{equation}
+Thus
+\begin{equation}
+\begin{aligned}
+    x &\equiv a_im_im_i^{-1} (\text{mod}~n_i) \\
+      &\equiv a_i (\text{mod}~n_i)
+\end{aligned}
+\end{equation}
+\end{document}

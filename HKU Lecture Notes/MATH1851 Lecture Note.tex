@@ -1,0 +1,344 @@
+\documentclass[25pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{float} 
+\setlength{\parindent}{2em}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\usepackage{xeCJK}
+\usepackage{mathrsfs}
+\usepackage{pdfpages}
+
+\lhead{Calculus and Ordinary Differential Equation}
+\rhead{MATH 1851}
+\geometry{a4paper, scale = 0.73}
+\begin{document}
+MATH1851 Lecture Notes \par
+\small{Created by He Entong}
+\section{Riccati Equation}
+For the Riccati equation a solution $u(x)$ is given.
+\begin{equation}
+\begin{aligned}
+    \frac{dy}{dx} = P(x)y^2 + Q(x)y + R(x)
+\end{aligned}
+\end{equation}
+Assume that another solution has the form of $K(x) = f(u(x)) + g(x)$.Substitute in we have
+\begin{equation}
+\begin{aligned}
+    f^{'}(u(x))u^{'}(x) + g^{'}(x) = P(x)(f(u(x)) + g(x))^2 + Q(x)(f(u(x)) + g(x)) + R(x) \notag
+\end{aligned}
+\end{equation}
+To simplify the calculation, we assume that $f(x)$ is a linear function with the coefficient equals to 1. Then we obtain
+\begin{equation}
+\begin{aligned}
+    &g^{'}(x) = P(x)[2u(x)g(x) + g^{2}(x)] + Q(x)g(x) \\
+    &g^{'}(x) - [Q(x) + 2u(x)P(x)]g(x) = P(x)g^2(x)
+\end{aligned}
+\end{equation}
+This is a Bernoulli equation, the solution to which is
+\begin{equation}
+    g(x)\bigg[e^{\int Q(x)+2u(x)P(x)dx}(-\int e^{\int Q(x) + 2u(x)P(x)dx} P(x)dx + C)\bigg] = 1
+\end{equation}
+\section{Additional Solution to Homogeneous ODE}
+ If $y_1(x)$ is known to be a solution to the homogeneous ODE
+\begin{equation}
+    y''(x) + p(x)y' +q(x)y = 0
+\end{equation}
+then we assume that another solution $y_2(x)$ has the form of $y_2(x) = uy_1(x)$, where $u$ is also a function of $x$. Substitute it in we obtain
+\begin{equation}
+\begin{aligned}
+    u''y_1 + &2u'y_1'+p(x)u'y_1 + u(y_1''+p(x)y_1'+q(x)y_1) = 0 \\
+    &u''y_1 + 2u'y_1' + p(x)u'y_1 = 0 \\
+    &u' = e^{-\int \frac{2y_1'}{y_1} + p(x)~dx + C_1} \\
+    &u = \int e^{-\int \frac{2y_1'}{y_1} + p(x)~dx + C_1} ~dx + C_2
+\end{aligned}
+\end{equation}
+\section{Variation of Parameters}
+For an non-homogeneous ODE
+\begin{equation}
+    y'' + p(x)y' + q(x)y = f(x)
+\end{equation}
+the solution $y_1(x),~y_2(x)$ to its correspond homogeneous equation is known, so we might well assume that the solutions to the non-homogeneous one has the form of
+\begin{equation}
+    Y = v_1(x)y_1(x) + v_2(x)y_2(x)
+\end{equation}
+where $v_1(x), v_2(x)$ are all functions of variable $x$. Substitute in we obtain
+\begin{gather}
+    v_1''(x)y_1(x) + 2v_1'(x)y_1'(x) + v_2''(x)y_2(x) + 2v_2'(x)y_2'(x)  +p(x)v_1'(x)y_1(x) +p(x)v_2'(x)y_2(x) +\\ v_1(x)[y_1''(x) + 
+    p(x)y_1'(x) + q(x)y_1(x)] + v_2(x)[y_2''(x) + p(x)y_2'(x) + q(x)y_2(x) ] = f(x)
+\end{gather}
+That is
+\begin{equation}
+\begin{aligned}
+    v_1''(x)y_1(x) + 2v_1'(x)y_1'(x) + v_2''(x)y_2(x) + 2v_2'(x)y_2'(x) \\ +p(x)v_1'(x)y_1(x) +p(x)v_2'(x)y_2(x) = f(x)
+\end{aligned}
+\end{equation}
+\noindent Let $v_1'(x)y_1(x) + v_2'(x)y_2(x)~=~0$ to simplify the calculation, we obtain
+\begin{gather}
+    T(x) = v_1'(x)y_1(x) + v_2'(x)y_2(x) = 0\notag \\
+    \frac{dT}{dx} = v_1''(x)y_1(x) + v_1'(x)y_1'(x) + v_2''(x)y_2(x) + v_2'(x) y_2'(x) = 0 \notag \\
+    v_1'(x)y_1'(x) + v_2'(x)y_2'(x) = f(x) \notag
+\end{gather}
+We obtain
+\begin{gather}
+    v_1'(x) = \frac{f(x)y_2(x)}{y_1'(x)y_2(x) - y_1(x)y_2'(x)}, ~ v_2'(x) = 
+    \frac{f(x)y_1(x)}{y_1(x)y_2'(x)-y_1'(x)y_2(x)} \notag \\
+    \boxed{Y = y_1(x) \int \frac{f(x)y_2(x)}{y_1'(x)y_2(x) - y_1(x)y_2'(x)} ~dx + y_2(x) \int \frac{f(x)y_1(x)}{y_1(x)y_2'(x)-y_1'(x)y_2(x)} ~dx} \notag
+\end{gather}
+Then the complete form of the solution to the original non-homogeneous ODE is 
+\begin{equation}
+\begin{aligned}
+    y(x) = C_1y_1(x) &+ C_2y_2(x) \\ + y_1(x) \int \frac{f(x)y_2(x)}{y_1'(x)y_2(x) - y_1(x)y_2'(x)} ~dx &+ y_2(x) \int \frac{f(x)y_1(x)}{y_1(x)y_2'(x)-y_1'(x)y_2(x)} ~dx  \notag 
+\end{aligned}
+\end{equation}
+\textbf{Be cautious} that sometimes the $y_p(x)$ generate some terms that can be merged with some definite terms in the complementary solutions.
+\section{D-Operator}
+We use $D^n$ to denote the derivation operation $\frac{d^n}{dx^n}$. We can easily find that 
+\begin{equation}
+\begin{aligned}
+    (D - r)y &= e^{rx}De^{-rx} \\ 
+    (D-r)^n y &= e^{rx}D^n e^{-rx}
+\end{aligned}
+\end{equation}
+\section{Convolution}
+Convolution in Laplace Transform gives a good way to simplify some definite transformation.
+\begin{equation}
+    \boxed{\mathscr{L}(f_1(t) * f_2(t)) = \mathscr{L}(f_1(t)) \mathscr{L}(f_2(t))}
+\end{equation}
+where 
+\begin{equation}
+    f_1(x)*f_2(x) = \int^{t}_{0} f_1(\tau)f_2(t-\tau)~\text{d} \tau
+\end{equation}
+\subsection{Derivation}
+\begin{equation}
+\begin{aligned}
+    \mathscr{L}(f_1(t))\mathscr{L}(f_2(t)) &= 
+    \int^{+\infty}_{0} e^{-sw} f_1(w)~\text{d}w \int^{+\infty}_{0} e^{-sv} f_2(v)~\text{d}v \\ &= \int^{+\infty}_{0} e^{-sw}f_1(w)~\text{d}w \int^{+\infty}_{0}e^{-s(t-w)}f_2(t-w)~\text{d}(t-w)\\
+    &= \int^{+\infty}_{0} e^{-st} \bigg(\int^{+\infty}_{0} f_1(w)f_2(t-w) ~\text{d}w \bigg) \text{d}t \notag
+\end{aligned}
+\end{equation}
+Since functions in the transformation both have their cut-off boundary at $x=0$, that is 
+\begin{equation}
+\text{Integral Kernel} = \left\{
+\begin{aligned}
+    & f_1(w)f_2(t-w),~~0\leq w \leq t \\
+    &~0,~~\text{otherwise} \\
+\end{aligned}
+\right.
+\end{equation}
+Then we obtain
+\begin{equation}
+\begin{aligned}
+    \mathscr{L}(f_1(t))\mathscr{L}(f_2(t)) &= \int^{+\infty}_{0}e^{-st}\bigg(\int^{t}_{0}f_1(w)f_2(t-w)~\text{d}w\bigg)\text{d}t \\
+    &= \mathscr{L}(f_1(t)*f_2(t)) 
+\end{aligned}
+\end{equation}
+\section{Taylor Series of Multivariable Function}
+A simple case is the functions of two variables. Assume that $u = f(x,y) $ is designed on plane $D$, and inside $D$ the function has partial derivatives of $n$ orders. A point $M(x_0, y_0) $ falls in $D$, and $h, k$ is sufficiently small to guarantee that point $(x_0+h,y_0 + k)$ falls in $D$ as well. Define $\phi(t) = f(a+th, b+tk)$, then $\phi(t)$ has Taylor series at $t=0$.
+\begin{equation}
+    \phi(1) = \sum_{k=0}^{n} \frac{1}{k!} \phi^{k}(0) + \frac{\phi^{n+1}(\theta)}{(n+1)!} 
+\end{equation}
+where $0 < \theta < 1$.
+Also we have
+\begin{equation}
+\begin{aligned}
+    \frac{d \phi}{dt} &= \bigg(h\frac{\partial }{\partial x} + k\frac{\partial }{\partial y}  \bigg)f \\
+    \frac{d^p \phi}{dt^p} &= \bigg(h \frac{\partial }{\partial x} + k \frac{\partial}{\partial y} \bigg)^p f \\
+    &= \sum_{r=0}^{p} C_{p}^{r} h^r k^{p-r} \frac{\partial^p f}{\partial x^r \partial y^{p-r}}
+\end{aligned}
+\end{equation}
+Substitute in we obtain
+\begin{equation}
+\begin{aligned}
+    f(a+h, b+k) = \sum_{k=0}^{n} \frac{1}{k!}\bigg(h\frac{\partial}{\partial x} + k\frac{\partial}{\partial y} \bigg)^k f(x, y)~\bigg|_{x=a,y=b} + \frac{1}{(n+1)!} \bigg(h\frac{\partial}{\partial x} + k\frac{\partial}{\partial t} \bigg)^{n+1} f(x,y) \bigg|_{x=a+\theta k, y= b+\theta k} \notag
+\end{aligned}
+\end{equation}
+Or a more generalized form gives
+\begin{equation}
+\begin{aligned}
+    f(x, y) &= \sum_{k=0}^{n} \frac{1}{k!} \bigg( (x-x_0)\frac{\partial}{\partial x} + (y-y_0)\frac{\partial }{\partial y} \bigg)^k f(x,y) \bigg|_{x=x_0,y=y_0} \\&+\frac{1}{(n+1)!} \bigg( (x-x_0)\frac{\partial}{\partial x } + (y-y_0)\frac{\partial}{\partial y} \bigg)^{n+1} f(x,y) \bigg|_{\substack{x=x_0 + \theta(x-x_0) \\ y = y_0 + \theta(y-y_0)}}
+\end{aligned}
+\end{equation}
+We can generalize the equation and give the Taylor series for arbitrary multivariable functions.
+\begin{equation}
+\begin{aligned}
+    f(x_1, x_2, \dots, x_n) &= \sum_{k=0}^{n}\frac{1}{k!} \bigg((x_1 - a_1)\frac{\partial}{\partial x_1} + (x_2 - a_2)\frac{\partial }{\partial x_2}+ \dots + (x_n - a_n)\frac{\partial}{\partial x_n} \bigg)^kf(x_1, x_2, \dots, x_n) \bigg|_{x_i = a_i}\\
+    &+\mathscr{O}(\theta_1,\theta_2,\dots,\theta_n)
+    \notag
+\end{aligned}
+\end{equation}
+\section{Euler's Formula of Reflection}
+For $0 < 1 < p$, Euler's Formula of Reflection is defined as 
+\begin{equation}
+\begin{aligned}
+    \Gamma(p)\Gamma(1-p) &= \frac{\Gamma(p)\Gamma(1-p)}{\Gamma(1)}\\
+    &= \text{B}(p, 1-p) = \int^{1}_{0} t^{p-1} (1-t)^{-p}~\text{d}t
+\end{aligned}
+\end{equation}
+With the transformation $t = \frac{t}{1+t}$, we obtain
+\begin{equation}
+    \int^{1}_{0} t^{p-1}(1-t)^{-p}~\text{d}t = \int^{+\infty}_{0} \frac{t^{p-1}}{(1+y)^p}~\text{d}t
+\end{equation}
+Integral kernel $\frac{t^{p-1}}{(1+y)^p}$ has a $p$-order singular point $y = -1$.Then setting up a circular contour integral, we obtain
+\begin{equation}
+    \int^{R}_{\epsilon} \frac{t^{p-1}}{(1+y)^p}~\text{d}t + \oint_{C_{\epsilon}} \frac{t^{p-1}}{(1+y)^p}~\text{d}t + \int^{\epsilon}_{R} (te^{2 \pi i})^{p-1} \frac{1}{(1+y)^p}~\text{d}t + \oint_{C_R} \frac{t^{p-1}}{(1+y)^p}~\text{d}t = 2 \pi i~ \text{Res}\bigg(\frac{t^{p-1}}{(1+y)^p}, -1 \bigg) \notag
+\end{equation}
+where
+\begin{gather}
+    \lim_{\epsilon \rightarrow 0} \oint_{C_{\epsilon}}\frac{t^{p-1}}{(1+y)^p}~\text{d}t = \lim_{R \rightarrow \infty} \oint_{C_R}\frac{t^{p-1}}{(1+y)^p} ~\text{d}t = 0\notag\\
+    \text{Res}\bigg( \frac{t^{p-1}}{(1+y)^p}, -1 \bigg) = e^{-i \pi} \notag
+\end{gather}
+Substitute in we obtain
+\begin{equation}
+    (1-e^{2(p-1)\pi i}) \lim_{\substack{R \rightarrow \infty \\ \epsilon \rightarrow 0} } \int^{R}_{\epsilon} \frac{t^{p-1}}{(1+y)^p}~\text{d}t = 2\pi i e^{-i \pi} \notag
+\end{equation}
+\begin{equation}
+    \lim_{\substack{R \rightarrow \infty \\ \epsilon \rightarrow 0} } \int^{R}_{\epsilon} \frac{t^{p-1}}{(1+y)^p}~\text{d}t = \int^{+\infty}_{0} \frac{t^{p-1}}{(1+y)^p} ~\text{d}t = \frac{2 \pi i e^{-i \pi}}{1-e^{2(p-1)\pi i}}= \frac{\pi}{\text{sin}p \pi} \notag
+\end{equation}
+Hence, 
+\begin{equation}
+    \boxed{\Gamma(p)\Gamma(1-p) = \frac{\pi}{\text{sin} p \pi}}
+\end{equation}
+\section{Duplication Formula}
+For $p > 0$,
+\begin{equation}
+    \Gamma(2p) = \frac{2^{2p-1}}{\sqrt{\pi}} \Gamma(p) \Gamma(p+\frac{1}{2})
+\end{equation}
+\subsection{Derivation}
+\begin{equation}
+\begin{aligned}
+    \frac{2^{2p-1}}{\sqrt{\pi}} \Gamma(p)\Gamma(p+\frac{1}{2}) &= \frac{2^{2p-1}}{\sqrt{\pi}} \Gamma(p) \frac{\Gamma(p)\Gamma(\frac{1}{2})}{\text{B}(p,\frac{1}{2})}\\
+    &= 2^{2p-1} \frac{\Gamma(p)\Gamma(p)}{\text{B}(p,\frac{1}{2})}
+\end{aligned}
+\end{equation}
+As
+\begin{equation}
+\begin{aligned}
+    \text{B}(p, p) &= \int^{1}_{0}t^{p-1}(1-t)^{p-1}~\text{d}t\\
+    &= \int^{1}_{0}(\frac{1+t}{2})^{p-1}(\frac{1-t}{2})^{p-1}~\text{d}(\frac{1+t}{2}) \\
+    &=\int^{1}_{-1} 4^{1-p}(1-t^2)^{p-1}~\text{d}t\\
+    &= 2^{2-2p} \int^{1}_{0} (1-t^2)^{p-1}~\text{d}t \\
+    &= 2^{1-2p} \int^{1}_{0} (1-t)^{p-1} t^{-\frac{1}{2}}~\text{d}t = 2^{1-2p}~\text{B}(p,\frac{1}{2}) 
+\end{aligned}
+\end{equation}
+Substitute (25) into (24) we obtain
+\begin{equation}
+    2^{2p-1} \frac{\Gamma(p)\Gamma(p)}{\text{B}(p,\frac{1}{2})} = \frac{\Gamma(p)\Gamma(p)}{\text{B}(p,p)} = \Gamma(2p)~~\text{Q.E.D.} \notag
+\end{equation}
+\section{Spherical Harmonics (\small{some pure mathematics})}
+We are interested in a general solution to Laplace Equation in spherical coordinate system. Denote the solution as $f(r,\theta,\phi)$
+\begin{equation}
+    \nabla^2 f = 0
+\end{equation}
+\subsection{Variable Separation in Spherical Coordinate System }
+The following gives the mapping from spherical coordinate system to Cartesian coordinate system.
+\begin{equation}
+\left\{
+\begin{aligned}
+    &x = r\text{cos}\theta \text{cos} \phi \\
+    &y = r\text{cos}\theta \text{sin} \phi \\
+    &z = r\text{sin}\theta
+\end{aligned}
+\right.
+\end{equation}
+Hence the corresponding differential operator is
+\begin{equation}
+\begin{aligned}
+    \nabla^2  f &= \bigg(\frac{1}{r^2}\frac{\partial}{\partial r}(r^2 \frac{\partial}{\partial r}) + \frac{1}{r^2sin\theta}\frac{\partial}{\partial \theta} (sin\theta \frac{\partial}{\partial \theta} ) + \frac{1}{r^2 sin^2\theta} \frac{\partial^2}{\partial \phi^2}\bigg) f
+\end{aligned}
+\end{equation}
+Let $f = R(r) Y(\theta, \phi)$. Substitute in we obtain
+\begin{equation}
+    \nabla^2R(r)Y(\theta, \phi) = \frac{Y}{r^2} \frac{\partial}{\partial r}\bigg(r^2 \frac{\partial R}{\partial r}\bigg) + \frac{R}{r^2 sin\theta} \frac{\partial}{\partial \theta} \bigg(sin\theta \frac{\partial Y}{\partial \theta}\bigg) + \frac{R}{r^2 sin^2\theta}\frac{\partial^2 Y}{\partial \phi^2} = 0
+\end{equation}
+That gives
+\begin{equation}
+    \frac{1}{R}\frac{\partial}{\partial r}\bigg(r^2 \frac{\partial R}{\partial r}\bigg) = -\frac{1}{Y sin\theta}\frac{\partial}{\partial \theta}\bigg(sin\theta \frac{\partial Y}{\partial \theta}\bigg) - \frac{1}{Y sin^2 \theta} \frac{\partial^2 Y}{\partial \phi^2} 
+\end{equation}
+The LHS only depends on variable $r$, while the RHS depends on $\theta$ and $\phi$. Hence, the both side all equals on a CONSTANT, denoted as $l(l+1)$.
+\begin{equation}
+    \frac{1}{R}\frac{\partial}{\partial r}\bigg(r^2 \frac{\partial R}{\partial r} \bigg) = l(l+1),~~ \frac{1}{Y sin\theta} \frac{\partial}{\partial \theta} \bigg(sin\theta \frac{\partial Y}{\partial \theta} \bigg) + \frac{1}{Y sin^2 \theta} \frac{\partial^2 Y}{\partial \phi^2} = -l(l+1)
+\end{equation}
+When solving the spherical luminosity, we are interested in the angular terms(variation of reference frame of radius terms is easy to implement). Then separate Y into
+\begin{equation}
+    Y = \Theta(\theta)\Phi(\phi)
+\end{equation}
+Substitute Y into (31) we obtain
+\begin{equation}
+    \frac{sin \theta}{\Theta } \frac{\partial}{\partial \theta}\bigg(sin \theta \frac{\partial \Theta}{\partial \theta}\bigg)  + l(l+1)sin \theta = -\frac{1}{\Phi } \frac{\partial^2 \Phi}{\partial \phi^2}
+\end{equation}
+Likewise, we use a new constant to connect both sides.
+\begin{gather}
+    \frac{sin \theta}{\Theta } \frac{\partial}{\partial \theta}\bigg(sin \theta \frac{\partial \Theta}{\partial \theta}\bigg)  + l(l+1)sin^2 \theta = \lambda,~~\frac{1}{\Phi } \frac{\partial^2 \Phi}{\partial \phi^2} = -\lambda \\
+    \frac{1}{sin \theta} \frac{\partial}{\partial \theta}\bigg(sin \theta \frac{\partial \Theta}{\partial \theta}\bigg) + \bigg[l(l+1) - \frac{\lambda}{sin^2 \theta} \bigg]\Theta = 0, ~~\frac{\partial^2 \Phi}{\partial \phi} + \lambda \Phi = 0
+\end{gather}
+For the second PDE, an implicit condition is that $\Phi(\phi ) =\Phi(\phi + 2\pi)$, the solution can be solved by characteristic equation by assuming $\Phi = e^{i m \phi}$
+\begin{equation}
+    -m^2 + \lambda = 0,~~e^{im \phi} = e^{im (\phi + 2\pi)}
+\end{equation}
+Hence, 
+\begin{equation}
+    \Phi(\phi) = e^{im\phi},~~m = 0, \pm1, \pm2,\dots
+\end{equation}
+As for the first PDE, we execute a transformation of the differential operator
+\begin{equation}
+    \frac{\partial}{\partial \theta} = \frac{\partial}{\partial cos \theta} \frac{\partial cos \theta}{\partial \theta} = -sin\theta \frac{\partial}{\partial cos \theta}
+\end{equation}
+Then we can transfer (36) into
+\begin{equation}
+    \frac{\partial}{\partial cos \theta}\bigg( sin^2 \theta \frac{\partial \Theta}{\partial cos \theta}\bigg) + \bigg[l(l+1) - \frac{\lambda}{sin^2 \theta}\bigg]\Theta = 0
+\end{equation} 
+Applying the variable substitution $x = cos\theta$, we obtain:
+\begin{gather}
+    \frac{\partial}{\partial x}\bigg((1-x^2)\frac{\partial \Theta}{\partial x}\bigg) + \bigg[l(l+1) - \frac{\lambda}{1-x^2} \bigg] \Theta = 0 \\
+    (1-x^2)\frac{\partial^2 \Theta}{\partial x^2} -2x\frac{\partial \Theta}{\partial x} + \bigg[l(l+1) - \frac{m^2}{1-x^2}\bigg]\Theta = 0
+\end{gather}
+With the aforementioned conclusion, $\lambda = m^2$, where $m = 0, \pm1, \pm2, \dots$ The equation has an periodic solution if and only if $m^2 = l(l+1),~~l = 0, \pm1, \pm2 \dots $ Assume that $\Theta(x)$ has series solution
+\begin{equation}
+    \Theta(x) = \sum_{k=0}^{ \infty}c_k x^k
+\end{equation}
+Substitute in and let $m = 0$(corresponds to Legendre Equation of order $l$) , we obtain
+\begin{gather}
+    (1-x^2) \sum_{k=2}^{+\infty} k(k-1)c_k x^{k-2} -2x \sum_{k=1}^{+\infty}kc_k x^{k-1} + l(l+1) \sum_{k=0}^{+\infty}c_k x^k =0 \notag \\
+    \sum_{k=0}^{+\infty} (k+2)(k+1)c_{k+2}x^k -(k-l)(k+l+1)c_kx^k = 0~~~\text{\textbf{for all x}}
+\end{gather}
+This gives a recurrence that
+\begin{equation}
+    c_{k+2} = \frac{(k-l)(k+l+1)}{(k+2)(k+1)}c_{k}
+\end{equation}
+The base cases for odd terms and even terms are, respectively
+\begin{equation}
+    c_0 = 1,~~c_1 = 1
+\end{equation}
+Hence we can give a general form of the coefficient to odd and even terms respectively.
+\begin{equation}
+c_k = \left\{
+\begin{aligned}
+    &\frac{1}{k!}\frac{(l+k-1)!!}{(l-1)!!}\frac{l!!}{(l-k)!!}(-1)^{\frac{k}{2}}c_0~~~~~~\text{k is even}\\
+    &\frac{1}{k!}\frac{(l+k-1)!!}{(l-1)!!}\frac{l!!}{(l-k)!!}(-1)^{\frac{k-1}{2}}c_1~~~~~~\text{k is odd} \\
+\end{aligned}
+\right.
+\end{equation}
+Then the solution to the Legendre Equation will be
+\begin{equation}
+    P_{l}(x) = \sum_{k=0}^{+\infty}c_k x^k
+\end{equation}
+Or we have \textbf{Rodrigues Formula} to simply generate the solution
+\begin{equation}
+    P_{l}(x) = \frac{1}{2^l l!}\frac{d^l}{dx^l}(x^2-1)^l
+\end{equation}
+\section{Lipschitz Continuous Condition}
+\subsection{Content}
+Given that two arbitrary points on the curve of function $f$, denoted as $x_1$, $x_2$. The slope of the line passing through both is bounded, i.e.
+\begin{equation}
+    ||f(x_1)-f(x_2)|| \leq K||x_1-x_2||
+\end{equation}
+where K is a constant. Lipschitz continuous condition gives a stronger continuity with higher smoothness.
+\end{document}
